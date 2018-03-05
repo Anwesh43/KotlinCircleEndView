@@ -77,7 +77,7 @@ class CircleEndView(ctx : Context, var n : Int = 5) : View(ctx) {
             val r = Math.min(w,h)/20
             paint.style = Paint.Style.STROKE
             paint.color = Color.parseColor("#4CAF50")
-            paint.strokeWidth = r/12
+            paint.strokeWidth = r/6
             paint.strokeCap = Paint.Cap.ROUND
             canvas.save()
             canvas.translate(r + (w -r - r) * state.scales[1], h/2)
