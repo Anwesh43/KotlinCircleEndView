@@ -3,6 +3,7 @@ package ui.anwesome.com.circleendview
 /**
  * Created by anweshmishra on 06/03/18.
  */
+import android.app.Activity
 import android.view.*
 import android.content.*
 import android.graphics.*
@@ -111,6 +112,13 @@ class CircleEndView(ctx : Context, var n : Int = 5) : View(ctx) {
             circleExpand.startUpdating {
                 animator.start()
             }
+        }
+    }
+    companion object {
+        fun create(activity : Activity): CircleEndView {
+            val view = CircleEndView(activity)
+            activity.setContentView(view)
+            return view
         }
     }
 }
