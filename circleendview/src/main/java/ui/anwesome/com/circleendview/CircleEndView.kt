@@ -14,9 +14,32 @@ class CircleEndView(ctx : Context) : View(ctx) {
     override fun onTouchEvent(event : MotionEvent) : Boolean {
         when(event.action) {
             MotionEvent.ACTION_DOWN -> {
-                
+
             }
         }
         return true
+    }
+    data class State(var prevScale : Float = 0f, var dir : Float = 0f, var j : Int = 0, var jDir : Int = 1) {
+        val scales : Array<Float> = arrayOf(0f, 0f, 0f)
+        fun update(stopcb : (Float) -> Unit) {
+            scales[j] += dir * 0.1f
+            if(Math.abs(scales[j] - this.prevScale) > 1) {
+                scales[j] = prevScale + this.dir
+                j += jDir
+                if(j == scales.size || j == -1) {
+                    jDir *= -1
+                    j += jDir
+                    prevScale = scales[j]
+                    dir = 0f
+                    stopcb(prevScale)
+                }
+            }
+        }
+        fun startUpdating(startcb : () -> Unit) {
+            if(dir == 0f) {
+                dir = 1 - 2 * prevScale
+                startcb()
+            }
+        }
     }
 }
