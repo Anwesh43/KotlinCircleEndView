@@ -95,4 +95,22 @@ class CircleEndView(ctx : Context, var n : Int = 5) : View(ctx) {
             state.startUpdating(startcb)
         }
     }
+    data class Renderer(var view : CircleEndView) {
+        val circleExpand = CircleExpand(0, view.n)
+        val animator = Animator(view)
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(Color.parseColor("#212121"))
+            circleExpand.draw(canvas, paint)
+            animator.animate {
+                circleExpand.update {
+                    animator.stop()
+                }
+            }
+        }
+        fun handleTap() {
+            circleExpand.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
